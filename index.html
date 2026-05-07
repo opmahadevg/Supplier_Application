@@ -282,32 +282,114 @@ document.getElementById('f').addEventListener('submit',async function(e){
 
   // ── POST to Supabase ──
   try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/supplier_applications`,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'apikey':SUPABASE_ANON,
-        'Authorization':`Bearer ${SUPABASE_ANON}`,
-        'Prefer':'return=minimal'
+    // ── Upload files to Supabase Storage ──────────────────────
+const BUCKET = 'supplier-documents';
+
+async function uploadFile(file, folder) {
+  const path = `${folder}/${Date.now()}_${file.name}`;
+  const uploadRes = await fetch(
+    `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`,
+    {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON,
+        'Authorization': 'Bearer ' + SUPABASE_ANON,
+        'Content-Type': file.type,
+        'x-upsert': 'true'
       },
-      body:JSON.stringify(payload)
-    });
-    document.getElementById('loader').classList.remove('show');
-    if(res.ok||res.status===201){
-      document.getElementById('ok').style.display='block';
-      document.getElementById('f').style.opacity='0.4';
-      document.getElementById('submitBtn').disabled=true;
-      document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
-    } else {
-      throw new Error('Status '+res.status);
+      body: file
     }
-  } catch(err){
-    document.getElementById('loader').classList.remove('show');
-    document.getElementById('submitBtn').disabled=false;
-    document.getElementById('errBanner').style.display='block';
-    document.getElementById('errBanner').scrollIntoView({behavior:'smooth',block:'center'});
+  );
+  if (!uploadRes.ok) return null;
+  // Return public URL
+  return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
+}
+
+// Upload catalog and photos before submitting
+const catFileInput = document.getElementById('catfile');
+const photoFileInput = document.getElementById('photofile');
+
+if (catFileInput.files.length > 0) {
+  payload.catalog_url = await uploadFile(catFileInput.files[0], 'catalogs');
+}
+
+if (photoFileInput.files.length > 0) {
+  // Handle multiple photos — upload all, store comma-separated URLs
+  const photoUrls = [];
+  for (const file of photoFileInput.files) {
+    const url = await uploadFile(file, 'photos');
+    if (url) photoUrls.push(url);
   }
-});
+  payload.photos_url = photoUrls.join(', ');
+}
+
+// ── POST to Supabase ──────────────────────────────────────
+    // ── Upload files to Supabase Storage ──────────────────
+    const BUCKET = 'supplier-documents';
+
+    async function uploadFile(file, folder) {
+      const path = `${folder}/${Date.now()}_${file.name}`;
+      const uploadRes = await fetch(
+        `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`,
+        {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON,
+            'Authorization': 'Bearer ' + SUPABASE_ANON,
+            'Content-Type': file.type,
+            'x-upsert': 'true'
+          },
+          body: file
+        }
+      );
+      if (!uploadRes.ok) return null;
+      return `${SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${path}`;
+    }
+
+    const catFileInput = document.getElementById('catfile');
+    const photoFileInput = document.getElementById('photofile');
+
+    if (catFileInput.files.length > 0) {
+      payload.catalog_url = await uploadFile(catFileInput.files[0], 'catalogs');
+    }
+
+    if (photoFileInput.files.length > 0) {
+      const photoUrls = [];
+      for (const file of photoFileInput.files) {
+        const url = await uploadFile(file, 'photos');
+        if (url) photoUrls.push(url);
+      }
+      payload.photos_url = photoUrls.join(', ');
+    }
+
+    // ── POST to Supabase ────────────────────────────────────
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/supplier_applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(payload)
+      });
+      document.getElementById('loader').classList.remove('show');
+      if (res.ok || res.status === 201) {
+        document.getElementById('ok').style.display = 'block';
+        document.getElementById('f').style.opacity = '0.4';
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('ok').scrollIntoView({behavior: 'smooth', block: 'center'});
+      } else {
+        throw new Error('Status ' + res.status);
+      }
+    } catch(err) {
+      document.getElementById('loader').classList.remove('show');
+      document.getElementById('submitBtn').disabled = false;
+      document.getElementById('errBanner').style.display = 'block';
+      document.getElementById('errBanner').scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
+  });
 </script>
 </body>
 </html>
