@@ -1,8 +1,12 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY")!;
-const ADMIN_EMAIL    = "adminproquoment@gmail.com";
-const FROM_EMAIL     = "notifications@proquoment.in"; // must be a verified Resend domain
+// NOTE: Resend requires a verified domain to send to external addresses.
+// Once proquoment.in is verified at resend.com/domains:
+//   - Change FROM_EMAIL to: notifications@proquoment.in
+//   - Change ADMIN_EMAIL to: adminproquoment@gmail.com
+const ADMIN_EMAIL    = "proquoment@gmail.com"; // TODO: change to adminproquoment@gmail.com after domain verification
+const FROM_EMAIL     = "onboarding@resend.dev"; // TODO: change to notifications@proquoment.in after domain verification
 
 serve(async (req) => {
   // Supabase DB Webhook sends a POST with the record payload
