@@ -78,6 +78,7 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
   const SUPABASE_URL  = 'https://qgyefzlanqkqzlgneyge.supabase.co';
   const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFneWVmemxhbnFrcXpsZ25leWdlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ3MDkzMTAsImV4cCI6MjA5MDI4NTMxMH0.znjY0MMbk8QhSNjW-3uOI3raoTgrg0JPmKCOwz4mCz0';
   const BUCKET = 'supplier-documents';
+  const EDGE_FN = SUPABASE_URL + '/functions/v1/submit-application';
 </script>
 
 <div class="loading-overlay" id="loader">
@@ -347,25 +348,26 @@ document.getElementById('f').addEventListener('submit', async function(e) {
   const lt2 = document.getElementById('loaderText');
   if (lt2) lt2.textContent = 'Saving application…';
 
-  // POST to Supabase
+  // POST to Edge Function (uses service role, bypasses RLS)
   try {
-    const res = await fetch(SUPABASE_URL+'/rest/v1/supplier_applications', {
+    const res = await fetch(EDGE_FN, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'apikey': SUPABASE_ANON,
-        'Authorization': 'Bearer '+SUPABASE_ANON,
-        'Prefer': 'return=minimal'
+        'Authorization': 'Bearer '+SUPABASE_ANON
       },
       body: JSON.stringify(payload)
     });
     document.getElementById('loader').classList.remove('show');
-    if (res.ok || res.status === 201) {
+    if (res.ok) {
       document.getElementById('ok').style.display = 'block';
       document.getElementById('f').style.opacity = '0.4';
       document.getElementById('submitBtn').disabled = true;
       document.getElementById('ok').scrollIntoView({behavior:'smooth',block:'center'});
     } else {
+      const errJson = await res.json().catch(()=>({}));
+      console.error('[Proquoment] Submit error:', errJson);
       throw new Error('Status '+res.status);
     }
   } catch(err) {
