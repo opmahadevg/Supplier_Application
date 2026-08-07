@@ -1,0 +1,24 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs every 4 days at 00:00 UTC (well within the 7-day pause window)
+    - cron: '0 0 */4 * *'
+  workflow_dispatch: # allow manual trigger from GitHub UI
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://qgyefzlanqkqzlgneyge.supabase.co/rest/v1/supplier_applications?limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          echo "Supabase ping status: $STATUS"
+          if [ "$STATUS" != "200" ] && [ "$STATUS" != "206" ]; then
+            echo "Unexpected status $STATUS - project may be paused"
+            exit 1
+          fi
+          echo "Supabase project is alive"
