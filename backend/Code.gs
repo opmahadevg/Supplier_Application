@@ -116,37 +116,8 @@ function doPost(e) {
     // Append to Google Sheet
     appendToSheet(row);
 
-    // Optional email notification to proquoment@gmail.com
-    try {
-      MailApp.sendEmail({
-        to: "proquoment@gmail.com",
-        subject: "🔔 New Supplier Application: " + (data.factory_name || "Unnamed Supplier"),
-        htmlBody: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; line-height: 1.6; color: #333;">
-            <div style="background-color: #000EEF; color: #fff; padding: 16px 20px; border-radius: 8px 8px 0 0;">
-              <h2 style="margin: 0; font-size: 20px;">New Supplier Application Received</h2>
-              <p style="margin: 4px 0 0 0; font-size: 14px; opacity: 0.9;">Source: proquoment.in supplier form</p>
-            </div>
-            <div style="padding: 20px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px; background-color: #fafafa;">
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 6px 0; font-weight: bold; width: 160px;">Factory Name:</td><td>${data.factory_name || "N/A"}</td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">Contact Name:</td><td>${data.primary_contact_name || "N/A"} (${data.primary_contact_role || "N/A"})</td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">Email:</td><td><a href="mailto:${data.email_primary || ""}">${data.email_primary || "N/A"}</a></td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">WhatsApp:</td><td>${data.whatsapp_primary || "N/A"}</td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">Country / City:</td><td>${data.country || "N/A"}, ${data.city || "N/A"}</td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">Categories:</td><td>${data.main_product_categories || "N/A"}</td></tr>
-                <tr><td style="padding: 6px 0; font-weight: bold;">Drive Folder:</td><td><a href="${folderResult.url}">Open Drive Folder</a></td></tr>
-              </table>
-            </div>
-          </div>
-        `
-      });
-    } catch (mailErr) {
-      Logger.log("Supplier notification email error: " + mailErr);
-    }
-
     Logger.log('✅ Submission saved: ' + submissionId + ' | Company: ' + (data.factory_name || 'Unnamed Supplier'));
-    return respond({ ok: true, result: "success", submissionId: submissionId });
+    return respond({ ok: true, submissionId: submissionId });
 
   } catch (err) {
     Logger.log('❌ Fatal error in doPost: ' + err.toString());

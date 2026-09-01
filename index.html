@@ -370,9 +370,7 @@ document.getElementById('f').addEventListener('submit', async function(e) {
       return;
     }
 
-    if (json.error || json.result === 'error') {
-      throw new Error(json.error || json.message || 'Submission failed on server');
-    }
+    if (json.error) throw new Error(json.error);
 
     // ── Success ─────────────────────────────────────────────────
     document.getElementById('ok').style.display = 'block';
@@ -385,8 +383,8 @@ document.getElementById('f').addEventListener('submit', async function(e) {
     document.getElementById('loader').classList.remove('show');
     document.getElementById('submitBtn').disabled = false;
     const banner = document.getElementById('errBanner');
-    const errMsg = (err && err.message && !err.message.includes('fetch') && !err.message.includes('Failed to fetch') && !err.message.includes('[object')) ? err.message : 'Submission failed. Check your connection and try again';
-    banner.innerHTML = errMsg + ' — or email <a href="mailto:contact@proquoment.in">contact@proquoment.in</a>';
+    const errMsg = (err && err.message) ? err.message : '';
+    banner.innerHTML = (errMsg ? '⚠️ ' + errMsg + '<br>' : '') + 'Check your connection and try again — or email <a href="mailto:contact@proquoment.in">contact@proquoment.in</a>';
     banner.style.display = 'block';
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
