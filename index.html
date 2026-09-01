@@ -210,7 +210,7 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
     </button>
   </div>
 
-  <div class="err-banner" id="errBanner">Submission failed. Check connection and try again — or email <a href="mailto:hello@proquoment.in">hello@proquoment.in</a></div>
+  <div class="err-banner" id="errBanner">Submission failed. Check connection and try again — or email <a href="mailto:contact@proquoment.in">contact@proquoment.in</a></div>
   <div class="ok" id="ok">
     <h3>Application Received ✓</h3>
     <p>Thank you for applying to the Proquoment supplier network.<br>Our team will review and reach out within 3–5 business days.</p>
@@ -364,13 +364,15 @@ document.getElementById('f').addEventListener('submit', async function(e) {
     if (json.duplicate) {
       document.getElementById('submitBtn').disabled = false;
       const banner = document.getElementById('errBanner');
-      banner.innerHTML = '⚠️ A submission with this email or company name already exists. Contact <a href="mailto:hello@proquoment.in">hello@proquoment.in</a> if this is an error.';
+      banner.innerHTML = '⚠️ A submission with this email or company name already exists. Contact <a href="mailto:contact@proquoment.in">contact@proquoment.in</a> if this is an error.';
       banner.style.display = 'block';
       banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
       return;
     }
 
-    if (json.error) throw new Error(json.error);
+    if (json.error || json.result === 'error') {
+      throw new Error(json.error || json.message || 'Submission failed on server');
+    }
 
     // ── Success ─────────────────────────────────────────────────
     document.getElementById('ok').style.display = 'block';
@@ -383,7 +385,8 @@ document.getElementById('f').addEventListener('submit', async function(e) {
     document.getElementById('loader').classList.remove('show');
     document.getElementById('submitBtn').disabled = false;
     const banner = document.getElementById('errBanner');
-    banner.innerHTML = 'Submission failed. Check your connection and try again — or email <a href="mailto:hello@proquoment.in">hello@proquoment.in</a>';
+    const errMsg = (err && err.message && !err.message.includes('fetch') && !err.message.includes('Failed to fetch') && !err.message.includes('[object')) ? err.message : 'Submission failed. Check your connection and try again';
+    banner.innerHTML = errMsg + ' — or email <a href="mailto:contact@proquoment.in">contact@proquoment.in</a>';
     banner.style.display = 'block';
     banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
