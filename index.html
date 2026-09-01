@@ -100,7 +100,7 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
 <div class="page">
 <div class="form-header">
   <h1>Supplier Application</h1>
-  <p>Apply to become a verified manufacturer on <a href="https://proquoment.in" target="_blank">Proquoment</a> — India's AI-powered B2B export platform. Fields marked <span style="color:#0066CC">*</span> are required.</p>
+  <p>Apply to become a verified manufacturer on <a href="https://proquoment.in" target="_blank">Proquoment</a> — India's AI-powered B2B export platform.</p>
 </div>
 <div class="form-body">
 <form id="f" novalidate>
@@ -108,46 +108,46 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
   <div class="sec-head">Company Information</div>
   <div class="fields">
     <div class="row2">
-      <div class="field"><label>Factory Name <span class="r">*</span></label><input type="text" id="factory_name" placeholder="Registered company name" required/></div>
-      <div class="field"><label>Year Established <span class="r">*</span></label><input type="number" id="year_est" placeholder="e.g. 2005" min="1800" max="2025" required/></div>
+      <div class="field"><label>Factory Name</label><input type="text" id="factory_name" placeholder="Registered company name"/></div>
+      <div class="field"><label>Year Established</label><input type="number" id="year_est" placeholder="e.g. 2005" min="1800" max="2025"/></div>
     </div>
     <div class="field">
-      <label>Full Address <span class="r">*</span></label>
+      <label>Full Address</label>
       <div class="addr">
-        <input class="s2" type="text" id="addr1" placeholder="Address Line 1" required/>
+        <input class="s2" type="text" id="addr1" placeholder="Address Line 1"/>
         <input class="s2" type="text" id="addr2" placeholder="Address Line 2 (Optional)"/>
-        <input type="text" id="city" placeholder="City" required/>
-        <input type="text" id="state" placeholder="State / Province" required/>
-        <input type="text" id="postal" placeholder="ZIP / Postal Code" required/>
-        <div class="sw"><select id="country" required>
-          <option value="" disabled selected>Country</option>
+        <input type="text" id="city" placeholder="City"/>
+        <input type="text" id="state" placeholder="State / Province"/>
+        <input type="text" id="postal" placeholder="ZIP / Postal Code"/>
+        <div class="sw"><select id="country">
+          <option value="" selected>Country</option>
           <option>Australia</option><option>Bangladesh</option><option>Brazil</option><option>Cambodia</option><option>Canada</option><option>China</option><option>Egypt</option><option>Ethiopia</option><option>France</option><option>Germany</option><option>Hong Kong</option><option>India</option><option>Indonesia</option><option>Italy</option><option>Japan</option><option>Malaysia</option><option>Mexico</option><option>Morocco</option><option>Myanmar</option><option>Nepal</option><option>Netherlands</option><option>Nigeria</option><option>Pakistan</option><option>Philippines</option><option>Poland</option><option>Portugal</option><option>Russia</option><option>Saudi Arabia</option><option>Singapore</option><option>South Africa</option><option>South Korea</option><option>Spain</option><option>Sri Lanka</option><option>Sweden</option><option>Taiwan</option><option>Thailand</option><option>Turkey</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option><option>Other</option>
         </select></div>
       </div>
     </div>
     <div class="row2">
-      <div class="field"><label>Factory Size / Area (m²) <span class="r">*</span></label><input type="number" id="factory_size" placeholder="e.g. 5000" required/></div>
-      <div class="field"><label>Number of Employees <span class="r">*</span></label><input type="number" id="num_emp" placeholder="e.g. 120" required/></div>
+      <div class="field"><label>Factory Size / Area (m²)</label><input type="number" id="factory_size" placeholder="e.g. 5000"/></div>
+      <div class="field"><label>Number of Employees</label><input type="number" id="num_emp" placeholder="e.g. 120"/></div>
     </div>
   </div>
 
   <div class="sec-head">Production Details</div>
   <div class="fields">
-    <div class="field"><label>Production Capacity (monthly / yearly) <span class="r">*</span></label><input type="text" id="prod_cap" placeholder="100,000 units / month" required/></div>
-    <div class="field"><label>Main Product Categories <span class="r">*</span></label><input type="text" id="prod_cat" placeholder="List your main product categories" required/></div>
-    <div class="field"><label>Export Percentage / Main Export Markets <span class="r">*</span></label><textarea id="export_markets" placeholder="70% USA, 20% Europe, 10% Other" required></textarea></div>
-    <div class="field"><label>Materials Specialized In <span class="r">*</span></label><textarea id="materials" placeholder="e.g., cotton, leather, stainless steel" required></textarea></div>
+    <div class="field"><label>Production Capacity (monthly / yearly)</label><input type="text" id="prod_cap" placeholder="100,000 units / month"/></div>
+    <div class="field"><label>Main Product Categories</label><input type="text" id="prod_cat" placeholder="List your main product categories"/></div>
+    <div class="field"><label>Export Percentage / Main Export Markets</label><textarea id="export_markets" placeholder="70% USA, 20% Europe, 10% Other"></textarea></div>
+    <div class="field"><label>Materials Specialized In</label><textarea id="materials" placeholder="e.g., cotton, leather, stainless steel"></textarea></div>
     <div class="row2">
       <div class="field"><label>Minimum Order Quantity (MOQ)</label><input type="number" id="moq" placeholder="Enter minimum order quantity"/></div>
       <div class="field"><label>Sample Lead Time</label><input type="text" id="sample_lt" placeholder="e.g. 7–10 days"/></div>
     </div>
     <div class="field"><label>Bulk Production Lead Time</label><input type="text" id="bulk_lt" placeholder="Estimated bulk production lead time"/></div>
-    <div class="field"><label>Certifications / Compliance <span class="r">*</span></label><textarea id="certs" placeholder="ISO, BSCI, SEDEX, OEKO-TEX, GOTS, etc." required></textarea></div>
+    <div class="field"><label>Certifications / Compliance</label><textarea id="certs" placeholder="ISO, BSCI, SEDEX, OEKO-TEX, GOTS, etc."></textarea></div>
     <div class="field"><label>Preferred Payment Terms</label><input type="text" id="pay_terms" placeholder="Specify your preferred payment terms"/></div>
     <div class="field">
-      <label>Accepted Payment Methods <span class="r">*</span></label>
+      <label>Accepted Payment Methods</label>
       <div class="radio-list">
-        <label class="ri"><input type="radio" name="pay" value="bank_transfer" required/><span class="rc"></span><span class="rt">Bank Transfer</span></label>
+        <label class="ri"><input type="radio" name="pay" value="bank_transfer"/><span class="rc"></span><span class="rt">Bank Transfer</span></label>
         <label class="ri"><input type="radio" name="pay" value="card"/><span class="rc"></span><span class="rt">Card</span></label>
         <label class="ri"><input type="radio" name="pay" value="alibaba_third_party"/><span class="rc"></span><span class="rt">Ali Baba or Third Party Site</span></label>
         <label class="ri"><input type="radio" name="pay" value="other"/><span class="rc"></span><span class="rt">Other</span></label>
@@ -158,21 +158,21 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
   <div class="sec-head">Contact Information</div>
   <div class="fields">
     <div class="row2">
-      <div class="field"><label>Primary Point of Contact <span class="r">*</span></label><input type="text" id="primary_name" placeholder="Name of primary contact" required/></div>
-      <div class="field"><label>Role / Designation <span class="r">*</span></label><input type="text" id="primary_role" placeholder="e.g. Export Manager" required/></div>
+      <div class="field"><label>Primary Point of Contact</label><input type="text" id="primary_name" placeholder="Name of primary contact"/></div>
+      <div class="field"><label>Role / Designation</label><input type="text" id="primary_role" placeholder="e.g. Export Manager"/></div>
     </div>
     <div class="row2">
       <div class="field"><label>Secondary Point of Contact</label><input type="text" id="sec_name" placeholder="Name (if applicable)"/></div>
       <div class="field"><label>Role / Designation</label><input type="text" id="sec_role" placeholder="e.g. Sales Director"/></div>
     </div>
     <div class="row2">
-      <div class="field"><label>Email Address <span class="r">*</span></label><input type="email" id="email1" placeholder="primary@email.com" required/></div>
+      <div class="field"><label>Email Address</label><input type="email" id="email1" placeholder="primary@email.com"/></div>
       <div class="field"><label>Additional Email Address</label><input type="email" id="email2" placeholder="secondary@email.com"/></div>
     </div>
     <div class="row2">
       <div class="field">
-        <label>WhatsApp Number <span class="r">*</span></label>
-        <div class="ph"><div class="sw"><select id="wp1_code"><option>+91</option><option>+1</option><option>+44</option><option>+86</option><option>+971</option><option>+49</option><option>+81</option><option>+55</option><option>+62</option><option>+880</option><option>+92</option><option>+84</option><option>+66</option><option>+60</option></select></div><input type="tel" id="wp1" placeholder="WhatsApp number" required/></div>
+        <label>WhatsApp Number</label>
+        <div class="ph"><div class="sw"><select id="wp1_code"><option>+91</option><option>+1</option><option>+44</option><option>+86</option><option>+971</option><option>+49</option><option>+81</option><option>+55</option><option>+62</option><option>+880</option><option>+92</option><option>+84</option><option>+66</option><option>+60</option></select></div><input type="tel" id="wp1" placeholder="WhatsApp number"/></div>
       </div>
       <div class="field">
         <label>Additional WhatsApp Number</label>
@@ -183,22 +183,22 @@ input:focus,textarea:focus,select:focus{border-color:#0066CC;box-shadow:0 0 0 3p
       <div class="field"><label>WeChat ID</label><input type="text" id="wc1" placeholder="If applicable, provide WeChat ID"/></div>
       <div class="field"><label>Additional WeChat ID</label><input type="text" id="wc2" placeholder=""/></div>
     </div>
-    <div class="field"><label>Website or Company Profile Link <span class="r">*</span></label><input type="url" id="website" placeholder="www.yourfactory.com" required/></div>
+    <div class="field"><label>Website or Company Profile Link</label><input type="url" id="website" placeholder="www.yourfactory.com"/></div>
   </div>
 
   <div class="sec-head">Media / Document Uploads</div>
   <div class="fields">
     <div class="field">
-      <label>Product Catalog Upload or Portfolio Link <span class="r">*</span></label>
+      <label>Product Catalog Upload or Portfolio Link</label>
       <label class="fz"><input type="file" id="cat_file" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip" onchange="sf(this,'cn1')"/><div class="fz-ico">📂</div><div class="fz-t">Drag &amp; drop or <strong>click to browse</strong><br><small>PDF, DOC, PPT, ZIP</small></div><div class="fz-n" id="cn1"></div></label>
     </div>
     <div class="field">
-      <label>Previous Clients <span class="r">*</span></label>
+      <label>Previous Clients</label>
       <div class="hint">This information will not be shared without your permission</div>
-      <textarea id="prev_clients" placeholder="List notable clients or brand partners" required></textarea>
+      <textarea id="prev_clients" placeholder="List notable clients or brand partners"></textarea>
     </div>
     <div class="field">
-      <label>Factory &amp; Product Photos <span class="r">*</span></label>
+      <label>Factory &amp; Product Photos</label>
       <label class="fz"><input type="file" id="photo_file" accept="image/*,.pdf,.zip" multiple onchange="sf(this,'cn2')"/><div class="fz-ico">🏭</div><div class="fz-t">Upload catalogue(s) and/or product information — <strong>click to browse</strong></div><div class="fz-n" id="cn2"></div></label>
     </div>
   </div>
@@ -260,17 +260,7 @@ function fileToBase64(file) {
 document.getElementById('f').addEventListener('submit', async function(e) {
   e.preventDefault();
 
-  // Client-side validation (unchanged)
-  let ok = true;
-  const req = ['factory_name','year_est','addr1','city','state','postal','country','factory_size','num_emp','prod_cap','prod_cat','export_markets','materials','certs','primary_name','primary_role','email1','wp1','website','prev_clients'];
-  req.forEach(function(id) {
-    const el = document.getElementById(id);
-    if (!el || !el.value.trim()) { if(el) el.classList.add('err-field'); ok = false; }
-    else el.classList.remove('err-field');
-  });
-  const payVal = document.querySelector('[name="pay"]:checked')?.value;
-  if (!payVal) ok = false;
-  if (!ok) { document.querySelector('.err-field')?.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+  const payVal = document.querySelector('[name="pay"]:checked')?.value || null;
 
   // Show loader
   document.getElementById('loader').classList.add('show');
@@ -282,38 +272,38 @@ document.getElementById('f').addEventListener('submit', async function(e) {
     // ── Step 1: Build text payload ──────────────────────────────
     setLoaderText('Reading form data…');
     const payload = {
-      factory_name:            document.getElementById('factory_name').value.trim(),
-      year_established:        parseInt(document.getElementById('year_est').value),
-      address_line_1:          document.getElementById('addr1').value.trim(),
+      factory_name:            document.getElementById('factory_name').value.trim() || null,
+      year_established:        parseInt(document.getElementById('year_est').value) || null,
+      address_line_1:          document.getElementById('addr1').value.trim() || null,
       address_line_2:          document.getElementById('addr2').value.trim() || null,
-      city:                    document.getElementById('city').value.trim(),
-      state_province:          document.getElementById('state').value.trim(),
-      postal_code:             document.getElementById('postal').value.trim(),
-      country:                 document.getElementById('country').value,
+      city:                    document.getElementById('city').value.trim() || null,
+      state_province:          document.getElementById('state').value.trim() || null,
+      postal_code:             document.getElementById('postal').value.trim() || null,
+      country:                 document.getElementById('country').value || null,
       factory_size_sqm:        parseFloat(document.getElementById('factory_size').value) || null,
-      num_employees:           parseInt(document.getElementById('num_emp').value),
-      production_capacity:     document.getElementById('prod_cap').value.trim(),
-      main_product_categories: document.getElementById('prod_cat').value.trim(),
-      export_markets:          document.getElementById('export_markets').value.trim(),
-      materials_specialized:   document.getElementById('materials').value.trim(),
+      num_employees:           parseInt(document.getElementById('num_emp').value) || null,
+      production_capacity:     document.getElementById('prod_cap').value.trim() || null,
+      main_product_categories: document.getElementById('prod_cat').value.trim() || null,
+      export_markets:          document.getElementById('export_markets').value.trim() || null,
+      materials_specialized:   document.getElementById('materials').value.trim() || null,
       moq:                     parseInt(document.getElementById('moq').value) || null,
       sample_lead_time:        document.getElementById('sample_lt').value.trim() || null,
       bulk_lead_time:          document.getElementById('bulk_lt').value.trim() || null,
-      certifications:          document.getElementById('certs').value.trim(),
+      certifications:          document.getElementById('certs').value.trim() || null,
       preferred_payment_terms: document.getElementById('pay_terms').value.trim() || null,
       accepted_payment_method: payVal,
-      primary_contact_name:    document.getElementById('primary_name').value.trim(),
-      primary_contact_role:    document.getElementById('primary_role').value.trim(),
+      primary_contact_name:    document.getElementById('primary_name').value.trim() || null,
+      primary_contact_role:    document.getElementById('primary_role').value.trim() || null,
       secondary_contact_name:  document.getElementById('sec_name').value.trim() || null,
       secondary_contact_role:  document.getElementById('sec_role').value.trim() || null,
-      email_primary:           document.getElementById('email1').value.trim(),
+      email_primary:           document.getElementById('email1').value.trim() || null,
       email_secondary:         document.getElementById('email2').value.trim() || null,
-      whatsapp_primary:        document.getElementById('wp1_code').value + document.getElementById('wp1').value.trim(),
+      whatsapp_primary:        document.getElementById('wp1').value.trim() ? document.getElementById('wp1_code').value + document.getElementById('wp1').value.trim() : null,
       whatsapp_secondary:      document.getElementById('wp2').value.trim() ? document.getElementById('wp2_code').value + document.getElementById('wp2').value.trim() : null,
       wechat_primary:          document.getElementById('wc1').value.trim() || null,
       wechat_secondary:        document.getElementById('wc2').value.trim() || null,
-      website_url:             document.getElementById('website').value.trim(),
-      previous_clients:        document.getElementById('prev_clients').value.trim(),
+      website_url:             document.getElementById('website').value.trim() || null,
+      previous_clients:        document.getElementById('prev_clients').value.trim() || null,
       source:                  'proquoment.in',
       catalog_file:            null,
       photo_files:             []

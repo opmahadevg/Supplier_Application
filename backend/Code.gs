@@ -79,7 +79,7 @@ function doPost(e) {
     const prefix  = Utilities.formatDate(now, tz, 'yyyyMMdd_HHmmss');
 
     // Create supplier folder inside "Proquoment Suppliers"
-    const safeCompany = sanitizeCompanyName(data.factory_name);
+    const safeCompany = sanitizeCompanyName(data.factory_name || 'Unnamed Supplier');
     const folderName  = safeCompany + ' - ' + dateStr;
     const folderResult = createSupplierFolder(folderName);
 
@@ -116,7 +116,7 @@ function doPost(e) {
     // Append to Google Sheet
     appendToSheet(row);
 
-    Logger.log('✅ Submission saved: ' + submissionId + ' | Company: ' + data.factory_name);
+    Logger.log('✅ Submission saved: ' + submissionId + ' | Company: ' + (data.factory_name || 'Unnamed Supplier'));
     return respond({ ok: true, submissionId: submissionId });
 
   } catch (err) {
@@ -137,26 +137,12 @@ function doGet(e) {
 // ============================================================
 
 function validatePayload(data) {
-  const required = [
-    'factory_name', 'year_established', 'address_line_1', 'city',
-    'state_province', 'postal_code', 'country', 'num_employees',
-    'production_capacity', 'main_product_categories', 'export_markets',
-    'materials_specialized', 'certifications', 'accepted_payment_method',
-    'primary_contact_name', 'primary_contact_role',
-    'email_primary', 'whatsapp_primary', 'website_url', 'previous_clients'
-  ];
-
-  for (const field of required) {
-    const val = data[field];
-    if (val === undefined || val === null || String(val).trim() === '') {
-      return { ok: false, error: 'Missing required field: ' + field };
+  // If primary email is provided, validate format; otherwise allow partial submission
+  if (data.email_primary && String(data.email_primary).trim() !== '') {
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(String(data.email_primary).trim())) {
+      return { ok: false, error: 'Invalid email address format' };
     }
-  }
-
-  // Basic email format check
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRe.test(String(data.email_primary).trim())) {
-    return { ok: false, error: 'Invalid email address format' };
   }
 
   return { ok: true };
@@ -167,6 +153,14 @@ function validatePayload(data) {
 // ============================================================
 
 function checkDuplicate(email, companyName) {
+  const normEmail   = email ? String(email).toLowerCase().trim() : '';
+  const normCompany = companyName ? String(companyName).toLowerCase().trim() : '';
+
+  // Only check duplicate if meaningful email or company name is provided
+  if (!normEmail && (!normCompany || normCompany === 'unnamed supplier')) {
+    return false;
+  }
+
   try {
     const sheet   = SpreadsheetApp.openById(CONFIG.SHEET_ID).getSheetByName(CONFIG.SHEET_NAME);
     const lastRow = sheet.getLastRow();
@@ -179,12 +173,11 @@ function checkDuplicate(email, companyName) {
     const emails    = sheet.getRange(2, 27, dataRows, 1).getValues();
     const companies = sheet.getRange(2, 3,  dataRows, 1).getValues();
 
-    const normEmail   = String(email).toLowerCase().trim();
-    const normCompany = String(companyName).toLowerCase().trim();
-
     for (let i = 0; i < dataRows; i++) {
-      if (String(emails[i][0]).toLowerCase().trim()    === normEmail)   return true;
-      if (String(companies[i][0]).toLowerCase().trim() === normCompany) return true;
+      const rowEmail = String(emails[i][0]).toLowerCase().trim();
+      const rowCompany = String(companies[i][0]).toLowerCase().trim();
+      if (normEmail && rowEmail && rowEmail === normEmail) return true;
+      if (normCompany && normCompany !== 'unnamed supplier' && rowCompany && rowCompany === normCompany) return true;
     }
     return false;
 
